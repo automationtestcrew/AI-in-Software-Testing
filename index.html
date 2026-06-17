@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to use AI in software testing. Test cases, automation, bug reports, API testing and more.">
+    <title>AI in Software Testing — Automation Test Crew</title>
+    <style>
+        :root {
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --primary-accent: #00D4AA;
+            --secondary-accent: #7C3AED;
+            --text-color: #FFFFFF;
+            --muted-text: #8B949E;
+            --border-color: #1C2530;
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        /* Sticky Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-accent);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 8rem 5% 6rem;
+            text-align: left;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .hero-label {
+            display: inline-block;
+            border: 1px solid var(--primary-accent);
+            color: var(--primary-accent);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero .tagline {
+            color: var(--muted-text);
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero p {
+            max-width: 700px;
+            color: var(--text-color);
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-subscribe {
+            display: inline-block;
+            border: 2px solid var(--primary-accent);
+            color: var(--primary-accent);
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .btn-subscribe:hover {
+            background-color: var(--primary-accent);
+            color: var(--bg-color);
+        }
+
+        .hero-subtext {
+            display: block;
+            color: var(--muted-text);
+            font-size: 0.875rem;
+        }
+
+        /* Decorative Circles */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .circle-purple {
+            width: 400px;
+            height: 400px;
+            background: var(--secondary-accent);
+            top: -100px;
+            right: -100px;
+        }
+
+        .circle-teal {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-accent);
+            bottom: -100px;
+            left: -100px;
+        }
+
+        /* Sections General */
+        section {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--muted-text);
+            margin-bottom: 3rem;
+        }
+
+        /* Grid Layouts */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(0, 212, 170, 0.3);
+        }
+
+        .episode-badge {
+            display: inline-block;
+            background-color: transparent;
+            border: 1px solid var(--primary-accent);
+            color: var(--primary-accent);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            align-self: flex-start;
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .card p {
+            color: var(--muted-text);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-accent);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Resource Card Button */
+        .btn-resource {
+            display: inline-block;
+            border: 1px solid var(--primary-accent);
+            color: var(--primary-accent);
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .btn-resource:hover {
+            background-color: var(--primary-accent);
+            color: var(--bg-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            padding: 4rem 5% 2rem;
+            text-align: center;
+        }
+
+        footer .logo {
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .footer-tagline {
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-accent);
+        }
+
+        .copyright {
+            color: var(--muted-text);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-color);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--border-color);
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .video-grid, .resource-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 5rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Automation Test Crew</div>
+        <div class="nav-links" id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#videos">Videos</a>
+            <a href="#resources">Resources</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="circle circle-purple"></div>
+        <div class="circle circle-teal"></div>
+        
+        <span class="hero-label">AI in Software Testing</span>
+        <h1>Automation Test Crew</h1>
+        <div class="tagline">Your shortcut to becoming a modern, high-output QA Engineer</div>
+        <p>
+            Testing is changing faster than ever. AI is cutting hours of 
+            manual work down to minutes. This playlist shows you exactly 
+            how to use AI as a QA Engineer — from test case generation to 
+            automation scripts, bug reports, API testing and much more. 
+            All practical. All hands-on.
+        </p>
+        <a href="https://www.youtube.com/@AutomationTestCrew" target="_blank" rel="noopener noreferrer" class="btn-subscribe">Subscribe on YouTube</a>
+        <span class="hero-subtext">Free playlist • New videos every week</span>
+    </header>
+
+    <section id="videos">
+        <h2 class="section-title">Playlist Videos</h2>
+        <p class="section-subtitle">Click any video to watch on YouTube</p>
+        
+        <div class="video-grid">
+            <!-- Card 1 -->
+            <a href="https://youtu.be/Vn0ahQyqCuw" target="_blank" rel="noopener noreferrer" class="card">
+                <span class="episode-badge">EP 01</span>
+                <h3>Start Here — AI in Software Testing for QA Engineers (2026)</h3>
+                <p>An introduction to using AI in your QA workflow and an overview of what we are going to learn in this entire playlist.</p>
+                <div class="card-footer">
+                    <span>▶</span> Watch on YouTube
+                </div>
+            </a>
+            <!-- Card 2 -->
+            <a href="https://www.youtube.com/@AutomationTestCrew" target="_blank" rel="noopener noreferrer" class="card">
+                <span class="episode-badge">EP 02</span>
+                <h3>How to Generate Test Cases Using ChatGPT in Minutes</h3>
+                <p>Learn how to leverage ChatGPT to create comprehensive test cases, edge cases, and test data from requirements in seconds, significantly speeding up your testing lifecycle.</p>
+                <div class="card-footer">
+                    <span>▶</span> Watch on YouTube
+                </div>
+            </a>
+            <!-- Card 3 -->
+            <a href="https://www.youtube.com/@AutomationTestCrew" target="_blank" rel="noopener noreferrer" class="card">
+                <span class="episode-badge">EP 03</span>
+                <h3>Coming Soon — AI in Software Testing</h3>
+                <p>This video will cover how to use AI in your QA workflow. Click to watch on YouTube.</p>
+                <div class="card-footer">
+                    <span>▶</span> Watch on YouTube
+                </div>
+            </a>
+            <!-- Card 4 -->
+            <a href="https://www.youtube.com/@AutomationTestCrew" target="_blank" rel="noopener noreferrer" class="card">
+                <span class="episode-badge">EP 04</span>
+                <h3>Coming Soon — AI in Software Testing</h3>
+                <p>This video will cover how to use AI in your QA workflow. Click to watch on YouTube.</p>
+                <div class="card-footer">
+                    <span>▶</span> Watch on YouTube
+                </div>
+            </a>
+            <!-- Card 5 -->
+            <a href="https://www.youtube.com/@AutomationTestCrew" target="_blank" rel="noopener noreferrer" class="card">
+                <span class="episode-badge">EP 05</span>
+                <h3>Coming Soon — AI in Software Testing</h3>
+                <p>This video will cover how to use AI in your QA workflow. Click to watch on YouTube.</p>
+                <div class="card-footer">
+                    <span>▶</span> Watch on YouTube
+                </div>
+            </a>
+            <!-- Card 6 -->
+            <a href="https://www.youtube.com/@AutomationTestCrew" target="_blank" rel="noopener noreferrer" class="card">
+                <span class="episode-badge">EP 06</span>
+                <h3>Coming Soon — AI in Software Testing</h3>
+                <p>This video will cover how to use AI in your QA workflow. Click to watch on YouTube.</p>
+                <div class="card-footer">
+                    <span>▶</span> Watch on YouTube
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section id="resources">
+        <h2 class="section-title">Resources</h2>
+        <p class="section-subtitle">Everything you need in one place</p>
+        
+        <div class="resource-grid">
+            <div class="card">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">📄</div>
+                <h3>API Testing Reference</h3>
+                <p>Complete Swagger API documentation for practicing API testing. Explore endpoints, request and response formats.</p>
+                <a href="https://automationtestcrew.github.io/API-Testing/" target="_blank" rel="noopener noreferrer" class="btn-resource">Open Swagger Docs</a>
+            </div>
+            <div class="card">
+                <div style="font-size: 2rem; margin-bottom: 1rem;">🤖</div>
+                <h3>AI Prompt to Generate Test Cases</h3>
+                <p>Get the ultimate AI prompt designed to generate high-quality test cases, edge cases, and automation-ready scripts from your requirements.</p>
+                <a href="https://docs.google.com/document/d/12SnC96tq3uHNWY01PhjX8OIlKaTVQluh9hB2vCdnMv8/edit?tab=t.0#heading=h.balekf2t5ygj" target="_blank" rel="noopener noreferrer" class="btn-resource">Get the Prompt</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">Automation Test Crew</div>
+        <span class="footer-tagline">Learn. Build. Level Up.</span>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@AutomationTestCrew" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://instagram.com/automationtest_crew" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+        <p class="copyright">© 2025 Automation Test Crew. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            // Hamburger animation
+            const spans = hamburger.querySelectorAll('span');
+            if (navLinks.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Close menu when link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const spans = hamburger.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
